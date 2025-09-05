@@ -1,0 +1,1 @@
+rv16-lib[core,srv,redis] @ git+https://github.com/raVioleria16/rv16-lib@v1.3.1

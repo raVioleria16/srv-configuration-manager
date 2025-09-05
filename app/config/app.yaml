@@ -1,0 +1,5 @@
+ext_srv:
+  redis_srv:
+    host: "redis"
+    port: 6379
+    db: 0
