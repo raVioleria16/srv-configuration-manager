@@ -1,3 +1,5 @@
+import json
+
 from rv16_lib import logger
 from starlette import status
 
@@ -18,7 +20,7 @@ class LocalProvider(Provider):
 
         payload = RedisElement(
             key=service,
-            value=configuration
+            value=json.dumps(configuration)
         )
         result = self.db_client.insert_one(payload)
         logger.info("Service %s registered: %s", service, result)
@@ -28,10 +30,10 @@ class LocalProvider(Provider):
     def get_service(self, service: str):
         payload = RedisElement(
             key=service,
-            value={}    # placeholder
         )
         service_params = self.db_client.find(payload)
         if service_params is None:
             raise ConfigurationManagerException(status_code=status.HTTP_404_NOT_FOUND, message=f"Service {service} not found.")
 
-        return service_params           # TODO - castare al tipo specifico
+        response = json.loads(service_params)
+        return response
