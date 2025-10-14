@@ -27,6 +27,7 @@ services:
       - CONFIG_DIR
       - PORT
     networks:
+      - global_network
       - internal-network
     restart: unless-stopped
 
@@ -34,5 +35,7 @@ volumes:
   redis_data:
 
 networks:
+  global_network:
+    external: true
   internal-network:
     driver: bridge
