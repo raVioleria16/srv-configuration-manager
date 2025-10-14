@@ -1,4 +1,16 @@
 services:
+
+  srv-redis:
+    # Use the redis:alpine image from Docker Hub
+    image: redis:alpine
+    container_name: srv-redis
+    volumes:
+      - redis_data:/data
+    networks:
+      - internal-network
+    # up at docker startup
+    restart: unless-stopped
+
   app:
     build:
       context: .
@@ -18,6 +30,9 @@ services:
       - internal-network
     restart: unless-stopped
 
+volumes:
+  redis_data:
+
 networks:
   internal-network:
-    external: true
+    driver: bridge

@@ -1,6 +1,6 @@
 import json
 
-from rv16_lib import logger
+from rv16_lib.logger import logger
 from starlette import status
 
 from rv16_lib.storage.database_connector import DatabaseConnector
@@ -28,12 +28,13 @@ class LocalProvider(Provider):
 
 
     def get_service(self, service: str):
+        logger.info(f"Retrieving configuration for service {service}")
         payload = RedisElement(
             key=service,
         )
         service_params = self.db_client.find(payload)
         if service_params is None:
             raise ConfigurationManagerException(status_code=status.HTTP_404_NOT_FOUND, message=f"Service {service} not found.")
-
         response = json.loads(service_params)
+        logger.info(f"Configuration found for service {service}: {type(response)} {response}")
         return response

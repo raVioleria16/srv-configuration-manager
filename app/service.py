@@ -15,7 +15,7 @@ class Service(BaseService):
         self.service_name = self.config.hostname
 
     def initialize_service(self):
-        redis_cfg = self.config.ext_srv.redis_srv
+        redis_cfg = self.config.redis_srv
 
         self.providers = {
             ProviderType.LOCAL: LocalProvider(
@@ -26,6 +26,5 @@ class Service(BaseService):
                 )
             )
         }
-
 
 service = Service()

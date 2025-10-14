@@ -9,14 +9,10 @@ class PairedServiceRedis(BaseModel):
     port: int
     db: int
 
-class ExtSrvList(BaseModel):
-    redis_srv: PairedServiceRedis
-
 class SrvConfig(BaseModel):
     hostname: str
     port: int
-
-    ext_srv: ExtSrvList
+    redis_srv: PairedServiceRedis
 
 
     @model_validator(mode="before")

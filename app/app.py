@@ -1,3 +1,4 @@
+import time
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from api.routers import endpoints
@@ -7,6 +8,7 @@ from service import service as srv
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # await srv.register_service()
+    time.sleep(10)
     srv.initialize_service()
     yield
 
